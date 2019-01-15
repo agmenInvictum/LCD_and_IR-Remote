@@ -30,7 +30,7 @@ const int six = 16607383;
 const int seven = 16586983;
 const int eight = 16619623;
 const int nine = 16603303;
-const int nulll = 4294967295;
+const int zero = 4294967295;
 
 
 const int VENT_PIN = 6;
@@ -56,138 +56,130 @@ void setup() {
 }
 
 void loop() {
-   if (irrecv.decode(&results)){
-        irrecv.resume();
+  if (irrecv.decode(&results)){
+    irrecv.resume();
+    
+    if (results.value == zero) {
+      delay(100);
+      results.value = key_value;
+    }
 
-        if (results.value == nulll)
-        {
-          delay(100);
-          results.value = key_value;
+    switch (results.value) {
+      case volDown:
+        if (ventSpeed < 256 && ventSpeed > 75) {
+          ventSpeed = ventSpeed - 25;
+          analogWrite(VENT_PIN, ventSpeed);
+          lcd.clear();
+          delay(10);
+          lcd.print(ventSpeed);
+          Serial.println(ventSpeed);
         }
+        break;
 
-        switch (results.value)
-        {
-          case volDown:
-          if (ventSpeed < 256 && ventSpeed > 75)
-          {
-            ventSpeed = ventSpeed - 25;
-            analogWrite(VENT_PIN, ventSpeed);
-            lcd.clear();
-            delay(10);
-            lcd.print(ventSpeed);
-            Serial.println(ventSpeed);
-          }
-          break;
-
-          case playPause:
-          if (ventStatus == false)
-          {
-            analogWrite(VENT_PIN, ventSpeed);
-            ventStatus = true;
-          }
-          else
-          {
-            analogWrite(VENT_PIN, 0);
-            ventStatus = false;
-          }
-          break;
-
-          case volUp:{
-          if (ventSpeed < 230 && ventSpeed > 0)
-            {
-              ventSpeed = ventSpeed + 25;
-              analogWrite(VENT_PIN, ventSpeed);
-              lcd.clear();
-              delay(10);
-              lcd.print(ventSpeed);
-              Serial.println(ventSpeed);
-            }
-          }
-          break;
-
-          case setupp:
-          break;
-
-          case prev:
-          break;
-
-          case stopMode:
-          break;
-
-          case chDown:
-          break;
-
-          case enterSave:
-          break;
-
-          case chUp:
-          break;
-
-          case zeroTenPlus:
-          break;
-
-          case next:
-          break;
-
-          case returnn:
-          break;
-
-          case one:
-          lcd.clear();
-          delay(100);
-          lcd.print("EINS!");
-          break;
-
-          case two:
-          lcd.clear();
-          delay(100);
-          lcd.print("ZWEI!");
-          break;
-
-          case three:
-          lcd.clear();
-          delay(100);
-          lcd.print("DREI!");
-          break;
-
-          case four:
-          lcd.clear();
-          delay(100);
-          lcd.print("VIER!");
-          break;
-
-          case five:
-          lcd.clear();
-          delay(100);
-          lcd.print("FÜNF!");
-          break;
-
-          case six:
-          lcd.clear();
-          delay(100);
-          lcd.print("SEX!");
-          break;
-
-          case seven:
-          lcd.clear();
-          delay(100);
-          lcd.print("SIEBEN!");
-          break;
-
-          case eight:
-          lcd.clear();
-          delay(100);
-          lcd.print("ACHT!");
-          break;
-
-          case nine:
-          lcd.clear();
-          delay(100);
-          lcd.print("NEUN!");
-          break;
+      case playPause:
+        if (ventStatus == false) {
+          analogWrite(VENT_PIN, ventSpeed);
+          ventStatus = true;
+        } else {
+          analogWrite(VENT_PIN, 0);
+          ventStatus = false;
         }
-        key_value = results.value;
-        irrecv.resume();
+        break;
+
+      case volUp:
+        if (ventSpeed < 230 && ventSpeed > 0) {
+          ventSpeed = ventSpeed + 25;
+          analogWrite(VENT_PIN, ventSpeed);
+          lcd.clear();
+          delay(10);
+          lcd.print(ventSpeed);
+          Serial.println(ventSpeed);
+        }
+        break;
+
+      case setupp:
+        break;
+
+      case prev:
+        break;
+
+      case stopMode:
+        break;
+
+      case chDown:
+        break;
+
+      case enterSave:
+        break;
+
+      case chUp:
+        break;
+
+      case zeroTenPlus:
+        break;
+
+      case next:
+        break;
+
+      case returnn:
+        break;
+
+      case one:
+        lcd.clear();
+        delay(100);
+        lcd.print("EINS!");
+        break;
+
+      case two:
+        lcd.clear();
+        delay(100);
+        lcd.print("ZWEI!");
+        break;
+
+      case three:
+        lcd.clear();
+        delay(100);
+        lcd.print("DREI!");
+        break;
+
+      case four:
+        lcd.clear();
+        delay(100);
+        lcd.print("VIER!");
+        break;
+
+      case five:
+        lcd.clear();
+        delay(100);
+        lcd.print("FÜNF!");
+        break;
+
+      case six:
+        lcd.clear();
+        delay(100);
+        lcd.print("SECHS!");
+        break;
+
+      case seven:
+        lcd.clear();
+        delay(100);
+        lcd.print("SIEBEN!");
+        break;
+
+      case eight:
+        lcd.clear();
+        delay(100);
+        lcd.print("ACHT!");
+        break;
+
+      case nine:
+        lcd.clear();
+        delay(100);
+        lcd.print("NEUN!");
+        break;
+    }
+     
+    key_value = results.value;
+    irrecv.resume();
   }
-
 }
