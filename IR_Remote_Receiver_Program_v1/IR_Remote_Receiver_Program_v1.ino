@@ -21,6 +21,7 @@ const int chUp = 16601263;
 const int zeroTenPlus = 16593103;
 const int next = 16625743;
 const int returnn = 16609423;
+const int zero = 4294967295;
 const int one = 16582903;
 const int two = 16615543;
 const int three = 16599223;
@@ -30,7 +31,6 @@ const int six = 16607383;
 const int seven = 16586983;
 const int eight = 16619623;
 const int nine = 16603303;
-const int zero = 4294967295;
 
 
 const int VENT_PIN = 6;
